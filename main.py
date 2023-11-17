@@ -39,11 +39,11 @@ mysql = MySQL(app)
 
 
 # set the connection to the database
-def sql_open():
-    con = sql.connect("tmp/database2.db")
-    con.row_factory = sql.Row
+# def sql_open():
+#     con = sql.connect("tmp/database2.db")
+#     con.row_factory = sql.Row
 
-    return con
+#     return con
 
 
 # base route
@@ -166,6 +166,7 @@ def newform():
                 ),
             )
             mysql.connection.commit()
+            cur.close()
 
         except Exception as e:
             print(e)
@@ -207,28 +208,28 @@ def newform():
 @login_required
 def med_list(status):
     # open db connection
-    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     # con = sql_open()
     # cursor = con.cursor()
 
     # unsolved shortages
     if status == "other":
-        cursor.execute("SELECT * FROM ruts WHERE solved = %s", (0,))
+        cur.execute("SELECT * FROM ruts WHERE solved = %s", (0,))
         list_type = "(por resolver)"
 
     # public data
     elif status == "public":
-        cursor.execute("SELECT * FROM ruts WHERE public = %s", (1,))
+        cur.execute("SELECT * FROM ruts WHERE public = %s", (1,))
         list_type = "(públicas)"
 
     # all data
     else:
-        cursor.execute("SELECT * FROM ruts")
+        cur.execute("SELECT * FROM ruts")
         list_type = "(todas)"
 
     # assign fetched data to variable and pass it to list template
-    data = cursor.fetchall()
-    cursor.close()
+    data = cur.fetchall()
+    cur.close()
     return render_template("list.html", data=data, listType=list_type)
 
 
@@ -237,11 +238,12 @@ def med_list(status):
 @login_required
 def details(itemID):
     # open db connection and get data according to passed id
-    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     # con = sql_open()
     # cursor = con.cursor()
-    cursor.execute("SELECT * FROM ruts WHERE id=%s", (itemID,))
-    data = cursor.fetchone()
+    cur.execute("SELECT * FROM ruts WHERE id=%s", (itemID,))
+    data = cur.fetchone()
+    cur.close()
     # render data on details template
     return render_template("details.html", data=data)
 
@@ -286,7 +288,7 @@ def edit(itemID):
                 ),
             )
             mysql.connection.commit()
-            mysql.connection.close()
+            cur.close()
         except Exception as e:
             print(e)
             flash("Erro na atualização, tente de novo", "flash-error")
@@ -303,6 +305,7 @@ def edit(itemID):
     cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     cur.execute("SELECT * FROM ruts WHERE id=%s", (itemID,))
     data = cur.fetchone()
+    cur.close()
     # pass data to javascript in editform to change select box option according to data in db
     return render_template(
         "editform.html",
@@ -321,7 +324,7 @@ def delete(itemID):
         cur = mysql.connection.cursor()
         cur.execute("DELETE FROM ruts WHERE id = %s", (itemID,))
         mysql.connection.commit()
-        mysql.connection.close()
+        cur.close()
     except Exception as e:
         print(e)
         flash("Não foi possível apagar o registo, tente de novo", "flash-error")
