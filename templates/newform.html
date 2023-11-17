@@ -1,0 +1,92 @@
+{% extends 'home.html'%}
+
+{% block main%}
+<div class="newform-bg pt-3">
+    <h4 class="text-center">Formulário de introdução de nova rutura</h4>
+<form class="m-3 mt-4" action="/newform" method="POST">
+    <div class="row g-2 bg-secondary-subtle add-form">
+        <div class="form-floating col-lg-3 mt-3">            
+            <input name="code" id="code" type="number" class="form-control bg-light" placeholder="" required autocomplete="off">
+            <label for="code">Código</label>
+        </div>
+        <div class="form-floating col-lg-9 mt-3">                        
+            <input name="desig" id="desig" type="text" class="form-control bg-light" placeholder="" required autocomplete="off">
+            <label for="desig">Designação</label>   
+        </div>      
+        <div class="form-floating col-lg-6 mt-3">
+            <input name="forn" id="forn" type="text" class="form-control bg-light" placeholder="" required autocomplete="off">
+            <label for="forn">Fornecedor</label>
+        </div>
+        <div class="form-floating col-lg-6 mt-3">            
+            <input name="enddate" id="enddate" type="date" class="form-control bg-light" placeholder="" required>
+            <label for="enddate" class="bg-body-transparent m-0">Data de fim da rutura</label>            
+        </div>
+        <div class="form-floating col-lg-6 mt-3">            
+            <input name="order" id="order" type="number" class="form-control bg-light" placeholder="" required autocomplete="off">
+            <label for="order" class="bg-body-transparent m-0">Nota de encomenda</label>            
+        </div>
+        <div class="form-floating col-lg-6 mt-3">            
+            <input name="lastdate" id="lastdate" type="date" class="form-control bg-light" placeholder="" required>
+            <label for="lastdate" class="bg-body-transparent m-0">Data da última alteração</label>            
+        </div>
+        
+        <div class="col-lg-3 mt-3">       
+            <select name="alter" class="form-select bg-light col-3" style="height: 58px" >
+                <option disabled selected>Alternativa</option>
+                <option value="newforn">Novo fornecedor</option>
+                <option value="newmed">Alternativa terapêutica</option>
+            </select>
+        </div>    
+        <div class="form-floating col-lg-9 mt-3">            
+            <input name="detail" id="detail" type="text" class="form-control bg-light" placeholder="" autocomplete="off">
+            <label for="detail" class="bg-body-transparent m-0">Detalhe</label>
+        </div>
+        <div class="form-floating col-lg-12 mt-3 mb-3">            
+            <textarea name="obs" id="obs" class="form-control bg-light" style="height:200px" placeholder="" autocomplete="off"></textarea>
+            <label for="obs" class="bg-body-transparent">Observações</label>                        
+        </div>
+    </div>
+    <div class="row">
+        <input type="submit" class="btn btn-success col-lg-1 ms-auto" value="Criar"></input>
+        <div class="col-lg-3 mx-auto" style="display:flex; justify-content:center">
+            <select id="public-select" name="public" class="form-select" style="height: 50px; width: 250px; background-color: green; color: white">
+                <option selected value=0 style="background: green">Não público</option>
+                <option value=1 style="background: red">Público</option>
+            </select>
+                                  
+        </div>
+        <div class="col-lg-3 mx-auto" style="display:flex; justify-content:center">
+            <select id="solved-select" name="solved" class="form-select" style="height: 50px; width: 250px; background-color: red; color: white">
+                <option selected value=0 style="background: red">Não resolvido</option>
+                <option value=1 style="background: green">Resolvido</option>
+            </select>                        
+        </div>
+        <a href="{{ url_for('menu') }}" class="btn btn-danger col-lg-1 me-auto d-flex align-items-center justify-content-center"><span>Cancelar</span></a>
+    </div>        
+</form>
+</div>
+{% endblock main %}
+{% block script %}
+<script>
+    const publicSelect = document.getElementById('public-select')
+    const solvedSelect = document.getElementById('solved-select')
+
+    publicSelect.addEventListener('change', () => {
+        if (publicSelect.value == 1) {
+            publicSelect.style.backgroundColor = "red" 
+        } else {
+            publicSelect.style.backgroundColor = "green"
+        }
+    })
+
+    solvedSelect.addEventListener('change', () => {
+        if (solvedSelect.value == 0) {
+            solvedSelect.style.backgroundColor = "red" 
+        } else {
+            solvedSelect.style.backgroundColor = "green"
+        }
+    })
+
+
+</script>
+{% endblock script %}

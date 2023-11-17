@@ -1,0 +1,76 @@
+{% extends 'home.html' %}
+
+{% block main %}
+
+<div class="container-fluid row mt-3 mx-auto">
+    <h3 class="mb-3 text-center">Detalhe da rutura</h3>
+    <table class="table table-light table-striped table-hover fs-5">
+        <tbody>
+            <tr>
+                <td style="width:250px">Código</td>
+                <td>{{ data['code'] }}</td>                
+            </tr>
+            <tr>
+                <td>Designação</td>
+                <td>{{ data['desig'] }}</td>                
+            </tr>
+            <tr>
+                <td>Fornecedor</td>
+                <td>{{ data['forn'] }}</td>                
+            </tr>
+            <tr>
+                <td>Nota de encomenda</td>
+                <td>{{ data['order_nr'] }}</td>                
+            </tr>
+            <tr>
+                <td>Data do fim da rutura</td>
+                <td>{{ data['end_date'] }}</td>                
+            </tr>
+            <tr>
+                <td>Alternativa</td>
+                <td>{{ data['alternative'] }}</td>                
+            </tr>
+            <tr>
+                <td>Detalhe</td>
+                <td>{{ data['detail'] }}</td>                
+            </tr>
+            <tr>
+                <td>Observações</td>
+                <td>{{ data['obs'] }}</td>                
+            </tr>
+            <tr>
+                <td>Público</td>
+                <td>{{ 'sim' if data['public'] == 1 else 'não' }}</td>                
+            </tr>
+            <tr>
+                <td>Resolvido</td>
+                <td>{{ 'sim' if data['solved'] == 1 else 'não' }}</td>                
+            </tr>
+            <tr>
+                <td>Atualizado em</td>
+                <td>{{ data['last_date'] }}</td>                
+            </tr>
+        </tbody>
+    </table>
+
+    {% if get_flashed_messages() %}
+
+    <div class="mt-3 mx-auto text-center row">
+        <a href="{{ url_for('edit', itemID=data['id']) }}" class="col ms-auto"><button class="btn btn-danger fs-5">Editar</button></a>
+        <div class="col-6"></div>
+        <a href="{{ url_for('menu') }}" class="col me-auto"><button class="btn btn-primary fs-5">Voltar</button></a>
+    </div>
+
+    {% else %}
+
+    <div class="mt-3 mx-auto text-center row">
+        <a href="{{ url_for('edit', itemID=data['id']) }}" class="col ms-auto"><button class="btn btn-danger fs-5">Editar</button></a>
+        <div class="col-6"></div>
+        <a href="javascript:history.back()" class="col me-auto"><button class="btn btn-primary fs-5">Voltar</button></a>
+    </div>
+
+    {% endif %}
+</div>
+
+
+{% endblock main %}

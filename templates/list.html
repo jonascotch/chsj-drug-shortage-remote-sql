@@ -1,0 +1,64 @@
+{% extends 'home.html' %}
+
+{% block main %}
+
+<div class="container-fluid row mt-3 mx-auto">
+    <h3 class="mb-3 text-center">Ruturas {{ listType }}</h3>
+    <table class="table table-striped-columns table-hover" id="allTable">
+        <thead class="table-light">
+            <tr>
+                <th>Código</th>
+                <th>Designação</th>
+                <th>Fornecedor</th>
+                <th>NE</th>
+                <th>Atualizado em</th>
+                <th>Em rutura até</th>
+                <th>Detalhe</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in data %}
+            {% if row['solved'] == 1 %}
+            <tr class="table-success">
+            {% else %}
+            <tr class="table-warning">
+            {% endif %}
+                <td style="width:100px">{{ row['code'] }}</td>
+                <td>{{ row['desig'] }}</td>
+                <td>{{ row['forn'] }}</td>
+                <td style="width:100px">{{ row['order_nr'] }}</td>
+                <td style="width:150px">{{ row['last_date'] }}</td>                
+                <td style="width:150px">{{ row['end_date'] }}</td>
+                <td style="width:50px; text-align: center;"><a class="text-color-black" href="{{ url_for('details', itemID=row['id']) }}"><i class="bi bi-info-square text-dark fs-5"></i></a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+
+    </table>
+</div>
+
+{% endblock main %}
+
+{% block script %}
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#allTable').DataTable(
+            {
+                language: {url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/pt-PT.json',},
+                'order': [1, 'asc'],
+                columns: [
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    {orderable :false},
+                ],
+                stateSave: true,
+                stateDuration: -1,                
+            }
+        )
+        });
+</script>
+{% endblock script %}

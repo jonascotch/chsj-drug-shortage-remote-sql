@@ -1,0 +1,35 @@
+{% extends 'home.html' %}
+
+{% block main %}
+
+<div class="container-fluid text-center row mt-3">
+    <a class="mt-3" href="{{url_for('newform')}}"><button class="btn btn-primary fs-3 w-25">Inserir Nova</button></a>
+    <a class="mt-3" id="listButton" href="#"><button class="btn btn-primary fs-3 w-25">Lista de ruturas</button></a>
+    <div class ="container" style="display:flex; justify-content:center; gap:20px">
+        <a class="mt-3 childButton" href="{{ url_for('med_list', status='other')}}" style="display:none"><button class="btn btn-warning fs-3" style="width:200px">Por resolver</button></a>
+        <a class="mt-3 childButton" href="{{ url_for('med_list', status='public')}}" style="display:none"><button class="btn btn-danger fs-3" style="width:200px">Públicas</button></a>
+        <a class="mt-3 childButton" href="{{ url_for('med_list', status='all')}}" style="display:none"><button class="btn btn-success fs-3" style="width:200px">Todas</button></a>
+    </div>
+    
+</div>
+
+{% endblock main %} 
+{% block script %}
+<script>
+    bswitch = document.getElementById('listButton');
+    bswitch.addEventListener("click", toggledisplay)
+
+    function toggledisplay(){
+        child = document.getElementsByClassName('childButton');
+
+        for (let i = 0; i < child.length; i++){
+            if (child[i].style.display == 'none'){
+                child[i].style.display = 'block'
+            }
+            else {
+                child[i].style.display = 'none'
+            }
+        }
+    }
+</script>
+{% endblock script %}

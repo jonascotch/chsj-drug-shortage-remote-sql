@@ -1,0 +1,20 @@
+{% extends 'home.html'%}
+
+{% block main%}
+<div class="login-bg p-4">
+<form class="text-center mt-3 g-2" action="/login" method="POST">
+    <div class="form-floating col-lg-4 col-md-4 col-sm-4 mx-auto mb-3">                
+        <input class="form-control" id="username" type="text" name="username" autofocus placeholder="username" required>
+        <label for="username" >Username</label>
+    </div>
+    <div class="form-floating col-lg-4 col-md-4 col-sm-4 mx-auto mb-3">       
+        <input class="form-control" type="password" id="password" name="password" placeholder="password" required>
+        <label for="password">Password</label>
+    </div>
+    <div class="m-3 col-4 mx-auto">
+        <button class="btn btn-primary" type="submit">Entrar</button>
+    </div>
+</form>
+</div>
+{% endblock main %}
+

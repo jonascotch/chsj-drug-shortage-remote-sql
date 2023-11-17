@@ -1,0 +1,44 @@
+body, html{
+    height: 100%;
+    text-decoration: none;
+}
+
+.add-form {
+    border-radius: 15px
+}
+
+.login-bg {
+    background-image: url("login-bg.webp");
+    background-size: cover;
+    height: 91.6%;
+}
+
+.newform-bg{
+    background-color: #e2e2e2;
+    height: 91.6%;
+}
+
+#deleteform {
+    margin-top: -20px;
+}
+
+table * {
+    font-family: "PT Sans Narrow";
+    font-size: 18px;
+}
+
+/* Chrome, Safari, Edge. No arrows in input number*/
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+/*body * {
+    border: 1px solid black
+}*/

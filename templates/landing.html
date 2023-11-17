@@ -1,0 +1,48 @@
+{% extends 'home.html' %}
+
+{% block main %}
+
+<div class="container-fluid row mt-3 ms-1">
+    <h3 class="mb-3 text-center">Informação sobre medicamentos em rutura</h3>
+    <table class="table table-striped-columns table-hover" id="landingTable">
+        <thead class="table-success">
+            <tr>
+                <th>Código</th>
+                <th>Designação</th>
+                <th>Informação</th>
+                <th>Em rutura até</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in data %}
+            <tr>
+                <td>{{ row['code'] }}</td>
+                <td>{{ row['desig'] }}</td>
+                <td>{{ row['detail'] }}</td>
+                <td>{{ row['end_date'] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+
+    </table>
+</div>
+
+{% endblock main %}
+
+{% block script %}
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#landingTable').DataTable(
+            {
+                language: {url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/pt-PT.json',},
+                columns : [
+                    null,
+                    null,
+                    {orderable: false},
+                    null
+                ]
+            }
+        )
+        });
+</script>
+{% endblock script %}
